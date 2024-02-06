@@ -9,6 +9,6 @@
     SQLite
     WPF [MVVM]
 
-![Изображение](https://raw.githubusercontent.com/BlackKronos2/SQL_MenuBuilder/master/Images/1.png)
-![Изображение](https://raw.githubusercontent.com/BlackKronos2/SQL_MenuBuilder/master/Images/2.png)
+![Изображение](https://github.com/BlackKronos2/SQL_MenuBuilder/blob/main/Images/1.png)
+![Изображение](https://github.com/BlackKronos2/SQL_MenuBuilder/blob/main/Images/2.png)
 
