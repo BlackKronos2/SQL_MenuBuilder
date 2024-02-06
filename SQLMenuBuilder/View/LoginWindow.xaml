@@ -1,0 +1,30 @@
+﻿<Window x:Class="SQLMenuBuilder.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQLMenuBuilder"
+        mc:Ignorable="d"
+        Title="Вход" Height="272" Width="325"
+		ResizeMode="NoResize"
+		Visibility="{Binding WindowVisibility, Mode=TwoWay}" Closed="Window_Closed">
+
+	<Window.DataContext>
+		<local:LoginWindowModelView/>
+	</Window.DataContext>
+
+	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+	</Window.Resources>
+
+	<Grid>
+		<PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Margin="110,110,0,0" VerticalAlignment="Top" Width="120" PasswordChar="*" PasswordChanged="PasswordBox_PasswordChanged"/>
+		<TextBox HorizontalAlignment="Left" Margin="110,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+		<Button Content="Войти" HorizontalAlignment="Center" Margin="0,164,0,0" VerticalAlignment="Top" Width="136" Command="{Binding LogCommand}"/>
+		<Button Content="Регистрация" HorizontalAlignment="Center" Margin="0,202,0,0" VerticalAlignment="Top" Width="136" Command="{Binding RegCommand}"/>
+		<Label Content="Логин:" HorizontalAlignment="Left" Margin="59,74,0,0" VerticalAlignment="Top"/>
+		<Label Content="Пароль:" HorizontalAlignment="Left" Margin="51,105,0,0" VerticalAlignment="Top"/>
+
+	</Grid>
+</Window>
