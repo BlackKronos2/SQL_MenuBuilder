@@ -13,8 +13,8 @@
 	</Page.DataContext>
 
 	<Grid Background="White">
-		<Button Content="Выйти" HorizontalAlignment="Left" Margin="786,454,0,0" VerticalAlignment="Top" Width="114" Height="36" Click="LogOutButton_Click"/>
-		<DataGrid x:Name="MainTable" Margin="50,65,50,50">
+		<Button Content="Выйти" HorizontalAlignment="Left" Margin="786,454,0,0" VerticalAlignment="Top" Width="114" Height="36" Click="LogOutButton_Click" />
+		<DataGrid x:Name="MainTable" Margin="50,65,50,50" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="795">
 			<DataGrid.Columns>
 					<DataGridTextColumn Header="#" Binding="{Binding Id}" Width="45"/>
 					<DataGridTextColumn Header="Пользователь" Binding="{Binding UserLogin}" Width="211"/>

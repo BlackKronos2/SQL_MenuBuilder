@@ -12,7 +12,7 @@ namespace DatabaseManagement
 		public int Edit { get; set; }
 		public int Delete { get; set; }
 
-		public UserModel User { get; set; }
-		public MenuItemModel MenuItem { get; set; }
+		public virtual UserModel User { get; set; }
+		public virtual MenuItemModel MenuItem { get; set; }
 	}
 }

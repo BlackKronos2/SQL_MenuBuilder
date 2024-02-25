@@ -24,32 +24,31 @@ namespace SQLMenuBuilder
 			_itemsList = new List<Item>(0);
 		}
 
-		public void LoadItems(List<(MenuItemModel, MenuItemAccessModel)> items)
+		public void LoadItems(List<MenuItemAccessModel> items)
 		{
-			var itemDict = items.ToDictionary(item => item.Item1.Id, item => item.Item1);
-			var itemAccess = items.ToDictionary(item => item.Item1.Id, item => (ItemAccess.LoadFromItem(item.Item2)));
+			var itemAccess = items.ToDictionary(item => item.Id, item => (ItemAccess.LoadFromItem(item)));
 
-			var mainItems = itemDict.Values.Where(i => i.ParentId == 0).ToList();
+			var mainItems = items.Where(i => i.MenuItem.ParentId == 0).ToList();
 			var addedId = mainItems.Select(i => i.Id).ToList();
 
-			foreach (var item in itemDict.Values.Where(i => i.ParentId == 0))
+			foreach (var item in items.Where(i => i.MenuItem.ParentId == 0))
 			{
-				_itemsList.Add(new Item(item.Id, 0, item.Name, itemAccess[item.Id]));
+				_itemsList.Add(new Item(item.Id, 0, item.MenuItem.Name, itemAccess[item.Id]));
 			}
 
 			while (_itemsList.Count != items.Count)
 			{
-				var childs = itemDict.Values.Where(i => addedId.Any(id => id == i.ParentId)).ToList();
+				var childs = items.Where(i => addedId.Any(id => id == i.MenuItem.ParentId)).ToList();
 				childs.RemoveAll(i => addedId.Contains(i.Id));
-				childs = childs.OrderBy(i => i.ParentId).ToList();
+				childs = childs.OrderBy(i => i.MenuItem.ParentId).ToList();
 
 				if (childs.Count == 0)
 					break;
 
 				foreach (var child in childs)
 				{
-					var parent = _itemsList.Find(i => i.Id == child.ParentId);
-					_itemsList.Insert(_itemsList.IndexOf(parent) + 1, new Item(child.Id, parent.Level + 1, child.Name, itemAccess[child.Id], child.Key, child.DLL));
+					var parent = _itemsList.Find(i => i.Id == child.MenuItem.ParentId);
+					_itemsList.Insert(_itemsList.IndexOf(parent) + 1, new Item(child.Id, parent.Level + 1, child.MenuItem.Name, itemAccess[child.Id], child.MenuItem.Key, child.MenuItem.DLL));
 					addedId.Add(child.Id);
 				}
 			}

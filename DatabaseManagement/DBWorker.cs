@@ -34,6 +34,7 @@ namespace DatabaseManagement
 			connectString = baseDirectory + "\\" + connectString;
 
 			optionsBuilder.UseSqlite($"Data Source={connectString}");
+			optionsBuilder.UseLazyLoadingProxies();
 		}
 		public DBWorker() : base()
 		{ }
@@ -44,14 +45,7 @@ namespace DatabaseManagement
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-			modelBuilder.Entity<UserModel>().ToTable("Users");
-			modelBuilder.Entity<UserModel>().HasKey(e => e.Id);
 
-			modelBuilder.Entity<MenuItemModel>().ToTable("MenuItems");
-			modelBuilder.Entity<MenuItemModel>().HasKey(e => e.Id);
-
-			modelBuilder.Entity<MenuItemAccessModel>().ToTable("AccessList");
-			modelBuilder.Entity<MenuItemAccessModel>().HasKey(e => e.Id);
 			modelBuilder.Entity<MenuItemAccessModel>()
 				.HasOne(ma => ma.MenuItem)
 				.WithMany()
@@ -133,19 +127,10 @@ namespace DatabaseManagement
 			throw new NotImplementedException();
 		}
 
-		public List<(MenuItemModel, MenuItemAccessModel)> LoadItems(UserModel user)
+		public List<MenuItemAccessModel> LoadItems(UserModel user)
 		{
 			var userAcess = AccessList.Where(a => a.UserId == user.Id).ToList();
-			List<(MenuItemModel, MenuItemAccessModel)> items = new List<(MenuItemModel, MenuItemAccessModel)>(0);
-
-
-			foreach (var access in userAcess)
-			{
-				var item = MenuItems.First(i => i.Id == access.MenuId);
-				items.Add((item, access));
-			}
-
-			return items;
+			return userAcess;
 		}
 
 
