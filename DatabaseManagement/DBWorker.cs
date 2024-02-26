@@ -22,7 +22,7 @@ namespace DatabaseManagement
 
 		private DbSet<UserModel> Users { get; set; }
 		private DbSet<MenuItemModel> MenuItems { get; set; }
-		private DbSet<MenuItemAccessModel> AccessList { get; set; }
+		private DbSet<MenuPageAccessModel> AccessList { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -46,11 +46,11 @@ namespace DatabaseManagement
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.Entity<MenuItemAccessModel>()
+			modelBuilder.Entity<MenuPageAccessModel>()
 				.HasOne(ma => ma.MenuItem)
 				.WithMany()
 				.HasForeignKey(ma => ma.MenuId);
-			modelBuilder.Entity<MenuItemAccessModel>()
+			modelBuilder.Entity<MenuPageAccessModel>()
 				.HasOne(access => access.User)
 				.WithMany()
 				.HasForeignKey(access => access.UserId);
@@ -127,7 +127,7 @@ namespace DatabaseManagement
 			throw new NotImplementedException();
 		}
 
-		public List<MenuItemAccessModel> LoadItems(UserModel user)
+		public List<MenuPageAccessModel> LoadItems(UserModel user)
 		{
 			var userAcess = AccessList.Where(a => a.UserId == user.Id).ToList();
 			return userAcess;
@@ -138,32 +138,32 @@ namespace DatabaseManagement
 
 		#region ACCESS
 
-		public List<MenuItemAccessModel> GetMenuAccessList() => AccessList.ToList();
+		public List<MenuPageAccessModel> GetMenuAccessList() => AccessList.ToList();
 
-		public void Add(MenuItemAccessModel menuItemAccessModel)
+		public void Add(MenuPageAccessModel menuPageAccessModel)
 		{
-			if (AccessList.Any(access => access.MenuId == menuItemAccessModel.MenuId && access.UserId == menuItemAccessModel.UserId))
+			if (AccessList.Any(access => access.MenuId == menuPageAccessModel.MenuId && access.UserId == menuPageAccessModel.UserId))
 				throw new Exception("Подобный доступ уже открыт");
 
-			AccessList.Add(menuItemAccessModel);
+			AccessList.Add(menuPageAccessModel);
 			SaveChanges();
 		}
 
-		public void Edit(MenuItemAccessModel menuItemAccessModel)
+		public void Edit(MenuPageAccessModel menuPageAccessModel)
 		{
-			var accessToEdit = AccessList.Find(menuItemAccessModel.Id);
+			var accessToEdit = AccessList.Find(menuPageAccessModel.Id);
 
 			if (accessToEdit == null)
 				throw new Exception("Данные для редактирования не найдены");
 
-			Entry(accessToEdit).CurrentValues.SetValues(menuItemAccessModel);
+			Entry(accessToEdit).CurrentValues.SetValues(menuPageAccessModel);
 			SaveChanges();
 			
 		}
 
-		public void Delete(MenuItemAccessModel menuItemAccessModel)
+		public void Delete(MenuPageAccessModel menuPageAccessModel)
 		{
-			var accessToDelete = AccessList.Find(menuItemAccessModel.Id);
+			var accessToDelete = AccessList.Find(menuPageAccessModel.Id);
 
 			if(accessToDelete == null)
 				throw new Exception("Данные для редактирования не найдены");

@@ -125,7 +125,7 @@ namespace AccessControl
 			LoadData();
 		}
 
-		public AccessEditModelView(MenuItemAccessModel accessModel) : base(accessModel)
+		public AccessEditModelView(MenuPageAccessModel accessModel) : base(accessModel)
 		{
 			Tittle = $"Редактирование доступа";
 			ButtonText = $"Редактировать";
@@ -162,7 +162,7 @@ namespace AccessControl
 				if (SelectedMenu == null)
 					throw new Exception("Меню не выбрано");
 
-				MenuItemAccessModel accessModel = new MenuItemAccessModel()
+				MenuPageAccessModel accessModel = new MenuPageAccessModel()
 				{ 
 					MenuId = SelectedMenu.Id,
 					UserId = SelectedUser.Id,
@@ -195,7 +195,7 @@ namespace AccessControl
 				if (SelectedMenu == null)
 					throw new Exception("Меню не выбрано");
 
-				MenuItemAccessModel accessModel = new MenuItemAccessModel()
+				MenuPageAccessModel accessModel = new MenuPageAccessModel()
 				{
 					Id = DataModel.Id,
 					MenuId = SelectedMenu.Id,

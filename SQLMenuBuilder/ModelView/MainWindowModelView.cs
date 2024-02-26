@@ -36,9 +36,8 @@ namespace SQLMenuBuilder
 				var user = DBWorker.GetInstance().GetByLogin(login);
 				var items = DBWorker.GetInstance().LoadItems(user);
 
-				DynamicUILoader dynamicUI = new DynamicUILoader();
-				dynamicUI.LoadItems(items);
-				return dynamicUI.GetMenuItems();
+				MenuBuilder dynamicUI = new MenuBuilder();
+				return dynamicUI.GetMenuItems(items);
 			}
 			catch (Exception ex)
 			{

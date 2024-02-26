@@ -11,7 +11,7 @@ using ModelViewContext;
 
 namespace AccessControl
 {
-	public class AccessItem : MenuItemAccessModel
+	public class AccessItem : MenuPageAccessModel
 	{ 
 		public string MenuName { get; set; }
 		public string UserLogin { get; set; }

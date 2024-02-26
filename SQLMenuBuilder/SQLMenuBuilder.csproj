@@ -182,8 +182,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DynamicUI\DynamicUILoader.cs" />
     <Compile Include="DynamicUI\MenuItemData.cs" />
+    <Compile Include="DynamicUI\MenuBuilder.cs" />
     <Compile Include="View\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
